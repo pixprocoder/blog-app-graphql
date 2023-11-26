@@ -1,6 +1,5 @@
-import jwt from "jsonwebtoken";
-export const jwtHelper = async (payload: any) => {
-  console.log(payload);
-  const token = jwt.sign(payload, "SecretToken", { expiresIn: "1d" });
+import jwt, { Secret } from "jsonwebtoken";
+export const jwtHelper = async (payload: any, secret: Secret) => {
+  const token = jwt.sign(payload, secret, { expiresIn: "1d" });
   return token;
 };
