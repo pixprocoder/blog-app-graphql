@@ -38,7 +38,12 @@
   - userId
 
 - Technology Stack:
+
   - graphql
   - typescript
   - postgresql
   - prisma
+
+- Packages
+  - bcrypt
+  - jwt
