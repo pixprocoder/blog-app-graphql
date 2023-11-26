@@ -10,14 +10,16 @@
 ## Table
 
 - post
+
   - id
   - title
   - content
   - authorId
   - createdAt
+  - updatedAt
   - published
-  - publishedAt
-- use
+
+- user
 
   - id
   - name
