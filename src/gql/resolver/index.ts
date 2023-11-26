@@ -2,11 +2,21 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+type userInfo = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 export const resolvers = {
-  Query: {},
+  Query: {
+    users: async (parent: any, args: any, context: any) => {
+      return await prisma.user.findMany();
+    },
+  },
 
   Mutation: {
-    signup: async (parent: any, args: any, context: any) => {
+    signup: async (parent: any, args: userInfo, context: any) => {
       return await prisma.user.create({
         data: args,
       });
