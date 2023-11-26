@@ -4,6 +4,7 @@ import { typeDefs } from "./gql/schema";
 import { resolvers } from "./gql/resolver";
 import { prisma } from "./utils/prismaClient";
 import { Context } from "./constant/prisma";
+import { jwtHelper } from "./utils/jwtHelper";
 
 const main = async () => {
   const server = new ApolloServer({
@@ -14,9 +15,15 @@ const main = async () => {
   // server
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
-    context: async (): Promise<Context> => {
+    context: async ({ req }): Promise<Context> => {
+      const userInfo = await jwtHelper.getUserInfoFromToken(
+        req.headers.authorization as string
+      );
+      console.log(userInfo);
+
       return {
         prisma,
+        userInfo,
       };
     },
   });

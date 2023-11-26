@@ -43,7 +43,7 @@ export const Mutation = {
     }
 
     // token
-    const token = await jwtHelper(
+    const token = await jwtHelper.generateToken(
       { userId: newUser.id },
       config.jwt.secret as string
     );
@@ -53,7 +53,6 @@ export const Mutation = {
     };
   },
 
-  // signIn
   signin: async (parent: any, args: any, { prisma }: any) => {
     const user = await prisma.user.findFirst({
       where: {
@@ -77,10 +76,18 @@ export const Mutation = {
       };
     }
 
-    const token = jwtHelper({ userId: user.id }, config.jwt.secret as string);
+    const token = jwtHelper.generateToken(
+      { userId: user.id },
+      config.jwt.secret as string
+    );
     return {
       userError: "success",
       token,
     };
+  },
+
+  addPost: async (parent: any, args: any, { userInfo }: any) => {
+    console.log("userInfo", userInfo);
+    console.log("object");
   },
 };
